@@ -1,0 +1,71 @@
+
+<html>
+
+	<style>
+	body {
+    	background-color:#aaaaaa;
+    	
+	}
+	canvas {
+	background-image: radial-gradient(white 15%, transparent 16%);
+	background-size:20px 20px;
+	background-color:#7086b5;
+	border:5px solid #ffffff
+	}
+	</style>
+	
+	<head>
+		<title>lab1</title>
+	</head>
+	
+	<body onload="start();">
+	<div style= "float:left">
+	<canvas id="grid" width="400" height="800"></canvas>
+	</div>
+	<div style="float:left">
+	<div style="background-color: gray; width: 100; position: relative; left: 20; top: 25; font-size: 35;">
+	Score: <br><div id="score">0</div>
+	</div>
+	<div style="position: relative; left: 20; top: 35;">
+	<button style="width: 50px; height:30px" id="decrease-unit">-</button>
+	Unit Size
+	<button style="width: 50px; height:30px" id="increase-unit">+</button>
+	</div>
+	<div style="position: relative; left:20; top: 45; font-size: 30;">
+	Next block:<br>
+	<canvas id="next" width="150" height="150" ></canvas>
+	</div>
+	</div>
+	<script src="gl-matrix.js"></script>
+	<script src="webgl-utils.js"></script>
+	<script src="initShaders.js"></script>
+	<script src="startup.js"></script>
+	<script src="shapes.js"></script>
+	<script src="transformations.js"></script>
+	
+	
+	<script id="vertex-shader" type="vertex">
+	attribute vec4 vertPosition;
+	attribute vec3 vcolor;
+
+	uniform mat4 PMatrix;
+	uniform mat4 MVMatrix;
+
+	varying vec3 color;
+
+	void main() {
+		gl_Position = PMatrix*MVMatrix*vertPosition;
+		color = vcolor;
+	}
+	</script>
+	
+	<script id="fragment-shader" type="fragment">
+	precision mediump float;
+	varying vec3 color;
+	void main() {
+		gl_FragColor = vec4(color, 1.0);
+	}
+	</script>
+	
+	</body>
+</html>
